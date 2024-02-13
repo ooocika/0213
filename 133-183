@@ -1,0 +1,743 @@
+import Prototype.AccessControl;
+
+//Factory Method Design Pattern
+
+public interface XMLParser {
+
+  public String parse();
+}
+
+//
+public class XMLParserFactory implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("Parsing error XML");
+    return "Error XML Message";
+  }
+}
+
+//
+public class FeedbackXML implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("Parsing Feedback XML");
+    return "Feedback XML Message";
+  }
+}
+
+//
+public class OrderXMLParser implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("Parsing Order XML...");
+    return "Order XML Message";
+  }
+}
+
+public class ResponseXMLParser implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("Parsing Response XML...");
+    return "Response XML Message";
+  }
+}
+
+//
+public class DisplayService{
+  public void display(){
+    XMLParser parser = getFactory();
+    String msg = parser.parse();
+    System.out.println(msg);
+  }
+
+  proteced abstract XMLParser getFactory();
+}}
+
+//
+public class ErrorXMLDisplayService extends DisplayService {
+
+  @Override
+  public XMLParser getParser
+  {
+    return new ErrorXMLParser();
+  }
+}
+
+//
+public class FeedbackXMLDisplayService extends DisplayService {
+
+  @Override
+  public XMlParser getParser() {
+    return new FeedbackXML();
+  }
+}
+//
+
+public class OrderXMLDisplayService extends DisplayService {
+
+  @Overide
+  public XMLParser getParser() {
+    return new OrderXMLParser();
+  }
+}
+
+//
+public class ResponseXMLDisplayService extends DisplayService {
+  @Override
+  public XMLParser getParser() {
+    return new ResponseXMLParser();
+  }
+}
+
+//
+public class TestFactoryMethodPattern {
+
+  public static void main(String[] args)}
+
+  {
+    DisplayService service = new FeedbackXMLDisplayService();
+    service.display();
+
+    service = new ErrorXMLDisplayService();
+    service.display();
+
+    service = new ErrorXMLDisplayService();
+    service.display();
+
+    service = new OrderXMLDisplayService();
+    service.display();
+
+    service = new ResponseXMLDisplayService();
+    service.display();
+
+  }
+}
+
+// Chapter 14 Abstract Factory Method Design Pattern
+
+public interface AbstractParserFactory {
+
+  public XMLParser getParserInstance(String parserType);
+
+}
+
+//
+public class NYParserFactory implements AbstractParserFactory {
+
+  @Override
+  public XMLParser getParserInstance(String parserType) {
+
+    switch (parserType) {
+      case "NYERROR":
+        return new NYErrorXMLParser();
+      case "NYFEEDBACK":
+        return new NYFeedbackXMLParser();
+      case "NYORDER":
+        return new NYOrderXMLParser();
+      case "NYRESPONSE":
+        return new NYResponseXMLParser();
+    }
+    return null;
+  }
+}
+
+//
+public class TWParserFactory implements AbstractParserFactory {
+
+  @Override
+  public XMLParser getParserInstance(String parserType) {
+
+    switch (parserType) {
+      case "TWERROR":
+        return new TWErrorXMLParser();
+      case "NYFEEDBACK":
+        return new NYFeedbackXMLParser();
+      case "NYORDER":
+        return new NYOrderXMLParser();
+      case "NYRESPONSE":
+        return new NYResponseXMLParser();
+    }
+
+    return null;
+
+  }
+}
+
+//
+public interface XMLParser {
+  public String parse();
+}
+
+//
+public class NYErrorXMLParser implements XMLParser {
+
+  @Override
+  public String parse(){
+    System.out.println("NY Parsing Error XML..");
+  
+  return "NY Error XML Message";" 
+    }
+}
+
+//
+public class NYFeedbackXMLParser implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("NY Parsing Feedback XML..");
+    return "NY Feedback XML Message";
+
+  }
+}
+
+//
+public class NYOrderXMLParser implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("NY Parsing Order XML..");
+    return "NY Order XML Message";
+  }
+}
+
+//
+public class NYResponseXMLParser implements XMLParser {
+
+  @Override
+  public String parse(){
+    System.out.println("NY Parsing Response XML..");
+    return "NY Response XML Message";"
+  }
+}
+
+//
+public class TWErrorXMLParser implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("TW Parsing Error XML..");
+    return "TW Error XML Message";
+  }
+}
+
+//
+public class TWFeedbackXMLParser implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("TW Parsing feedback XML..");
+    return "TW Feedback XML Message";
+  }
+}
+//
+
+public class TWOrderXMLParser implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("TW Parsing Order XML..");
+    return "TW Order XML Message";
+  }
+}
+
+//
+public class TWResonseXMLParser implements XMLParser {
+
+  @Override
+  public String parse() {
+    System.out.println("TW Parsing response XML..");
+    return "TW Response XML Message";
+  }
+}
+
+//
+public final class ParserFactoryProducer {
+
+  private ParserFactoryProducer{
+
+  private ParserFactoryProducer(){
+
+      throw new AssertionError();
+    }
+
+  public static AbstractParserFactory getFactory(String factoryType) {
+
+    switch (factoryType) {
+      case "NYFactory":
+        return new NYParserFactory();
+      case "TWFactory":
+        return new TWParserFactory();
+    }
+    return null;
+  }
+}
+//
+
+public class TestAbstractFactoryPattern {
+
+  public static void main(String[] args){
+
+      AbstractParserFactory parserFactory = ParserFactoryProducer.getFactory("
+                                                                             NYFactory");
+      XMLParser parser = parserFactory.getParserInstance("NYODER");
+      String msg="";
+      msg = parser.parse();
+      System.out.println(msg);
+
+      System.out.println("****************");
+
+      parserFactory  = ParserFactoryProducer.getFactory("TWFactory");
+      parser = parserFactory.getParserInstance("TWFEEDBACK");
+      msg = parser.parse();
+
+       System.out.println(msg);
+    }
+}
+
+// Prototype Design Pattern
+public interface Prototype extends Cloneable {
+
+  public AccessControl clone() throww CloneNotSupportException;
+  
+}
+
+  public class AccessControl implements Prototype {
+
+    private final String controlLevel;
+    private String access;
+
+    public AccessControl(String controlLevel, String access) {
+      this.controlLevel = controlLevel;
+
+      this.access = access;
+
+    }
+
+    @Override
+    public AccessControl clone() {
+      try {
+        return (AccessControl) super.clone();
+
+      } catch (CloneNotSupportedException e) {
+        e.printStackTrace();
+      }
+      return null;
+
+    }
+
+  }
+
+public String getControllLevel(){
+  return controlLevel;
+}
+
+public String getAccess(){
+  return access;
+}
+
+public void setAccess(String access){
+  this.access = access;
+}
+}//
+
+public class User {
+
+  private String userName;
+  private String level;
+  private AccessControl accessControl;
+
+  public User(String userName, String level, AccessControl accessControl) {
+    this.userName = userName;
+    this.level = level;
+    this.accessControl = accessControl;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public Strign getLevel() {
+    return level;
+  }
+
+  public void setLevel(String level) {
+    thiss.level = level;
+  }
+
+  public AccessControl getAccessControl() {
+
+    return accessControl;
+  }
+
+  public void setAccessControl(AccessControl accessControl) {
+    this.accessControl = accessControl;
+  }
+
+  @Override
+  public String toString() {
+    return "Name:" + userName + ", Level" + level + ",Access Control Level:" +
+        accessControl.getControllLevel() + ",Access:" + accessControl.getAccess();
+  }
+}
+
+//
+public class AccessControlFactory {
+
+  private static Map<String, AccessControl>map  = new HashMap = new HashMap<String, AccessControl>();
+
+static{
+
+  System.out.println("Fetching data from external resource and creating 
+                     access control objects...");
+  map.put("USER", new AccessControl("USER","DO_WORK"));
+  map.put("ADMIN", new AccessControl("ADMIN","DO_ALL"));
+  map.put("MANAGER", new AccessControl("MANAGER","DO_ALL"));
+  map.put("VP", new AccessControl("VP", "MODIFY REPORTS"));
+  
+}
+
+  public static AccessControl getAccessControlObject(String controlLevel) {
+
+    AccessControl ac = null;
+    ac = map.get(controlLevel);
+    if (ac != null) {
+      return ac.clone();
+    }
+    return null;
+
+  }
+}
+
+//
+public class TestPrototypePattern {
+  public static void main(String[] args) {
+    AccessControl userAccessControl = AccessControlProvider.getAccessControlObject("USER");
+    User user = new User("User A", "USER Level", userAccessControl);
+    System.out.println("****************");
+    System.out.println(user);
+
+    userAccessControl = AccessControlProvider.getAccessControlObject("USER");
+    user = new User("User B", "USER Level", userAccessControl);
+    System.out.println("Changing access control of:" + user.getUserName());
+    user.getAccessControl().setAccess("READ REPORTS");
+    System.out.println(user);
+
+    System.out.println("****************");
+
+    AccessControl adminAccessControl = AccessControlProvider.getAccessControlobject("MANAGER");
+    user = new User("User C", "MANAGER Level", managerAccessControl);
+    System.out.println(user);
+  }
+}
+// Memento Design Pattern
+
+public class Originator {
+
+  private double x;
+  private double y;
+
+  private String lastUndoSavepoint;
+  CareTaker careTaker;
+
+  public Originator(double x, double y, CareTaker careTaker) {
+    this.x = x;
+    this.y = y;
+
+    this.careTaker = careTaker;
+
+    createSavepoint("INITIAL");
+  }
+
+  public double getX() {
+    return x;
+  }
+
+  public double getY() {
+    return y;
+  }
+
+  public void setX(double x) {
+    this.x = x;
+
+  }
+
+  public void setY(double y) {
+    this.y = y;
+  }
+
+  public void createSavepoint(String savepoint) {
+
+    careTaker.saveMemento(new Memento(this.x, this.y).savepointName);
+    lastUndoSavepoint = savepointName;
+  }
+
+  public void undo() {
+    setOriginatorState(lastUndoSavepoint);
+  }
+
+  public void undo(String savepointName) {
+    seOriginatorState(savepointName);
+
+  }
+
+  public void undoAll() {
+    setOriginatorState("INITIAL");
+    careTaker.clearSavepoints();
+  }
+
+  private void setOriginatorState(String savepointName) {
+    Memento mem = careTaker.getMemento(savepointName);
+    this.x = mem.getX;
+    this.y = mem.getY;
+  }
+
+  @Override
+  public String toString() {
+    return "X: " + x + ", Y" + y;
+  }
+
+}
+
+//
+public class Memento {
+  private double x;
+  private double y;
+
+  public Memento(double x, double y) {
+    this.x = x;
+    this.y = y;
+
+  }
+
+  public double getX() {
+    return x;
+  }
+
+  public double getY() {
+    return y;
+  }
+}
+
+//
+public class CareTaker {
+
+  private final Map<String, Memento> savepointStorage = new HashMap<String, Memento>();
+
+  public void saveMemento(Memento memento, String savepointName) {
+    System.out.println("Saving state..", savepointName);
+    savepointStorage.put(savepointName, memento);
+  }
+
+  public Memento getMemento(String savepointName) {
+    System.out.println("Unfo at.." + savepointName);
+    return savepointStorage.get(savepointName);
+
+  }
+
+  public void clearSavepoints() {
+    System.out.println("Clearing all save points...");
+    savepointStorage.clear();
+  }
+}
+
+//
+public class TestMementoPattern {
+
+  public static void main(String[] args) {
+    CareTaker careTaker = new CareTaker();
+    Originator originator = new Originator(5, 10, careTaker);
+
+    System.out.println("Default State:" + originator);
+
+    originator.setX(originator.getY() * 51);
+
+    System.out.println("State:" + originator);
+    originator.createSavepoint("SAVE1");
+
+    originator.setY(originator.getX() / 22);
+    System.out.println("State: " + originator);
+
+    originator.undo();
+    System.out.println("State after undo:" + originator);
+
+    originator.setX(Math.pow(originator.getX(), 3));
+    originator.createSavepoint("SAVE2");
+    System.out.println("State:" + originator);
+    originator.setY(originator.getX() - 30);
+
+    originator.createSavepoint("SAVE3");
+    System.out.println("State:" + originator);
+    originator.setY(originator.getX() / 22);
+
+    originator.undo("SAVE2");
+    System.out.println("State after all:" + originator);
+  }
+}
+//
+
+// Template Design Pattern
+
+public abstract class ConnectionTemplate {
+
+  public final void run() {
+
+    setDBDriver();
+    setCredentials();
+    connect();
+    prepareStatement();
+    setDate();
+    insert();
+    close();
+    destory();
+  }
+
+  public abstract void setDBDriver();
+
+  public abstract void setCredentials();
+
+  public void connect() {
+    System.out.println("Preparing insert statement...");
+
+  }
+
+  public abstract void setDate();
+
+  public void insert() {
+    System.out.println("Inserting data ");
+  }
+
+  public void close() {
+    System.out.println("Closing connections...");
+
+  }
+
+  public voic destory() {
+    System.out.println("Destorying connection objects..");
+  }
+}
+
+//
+public class MySqLCSVCon extends ConnectionTemplate {
+
+  @Override
+  public void setDBDriver() {
+    System.out.println("Setting MySQl DB driver...");
+  }
+
+  @Override
+  public void setCredentials() {
+    System.out.println("Setting credentials for MySQL DB...");
+  }
+
+  @Override
+  public void setDate({
+  System.out.println("Setting up date from csv file...");
+  }
+}
+//
+
+public class OracleTxtCon extends ConnectionTemplate {
+
+  @Override
+  public void setDBDriver() {
+    System.out.println("Setting Oracle DB drivers...");
+  }
+
+  @Override
+  public void setCredentials() {
+
+    System.out.println("Setting creadentials for Oracle DB...");
+  }
+
+  @Override
+  public void setDate() {
+    System.out.println("Setting up date from text file...");
+  }
+
+}
+
+//
+public class TestTemplatePattern {
+  public static void main(String[] args  ){
+    System.out.println(("For MYSQL...");
+    ConnectionTemplate template  = new MySqlCSVCon();
+    template.run();
+    System.out.println("For Oracle...");
+    template = new OracleTxtCon();
+    template.run();
+    
+  }
+}
+//
+public abstract class ConnectionTemplate{
+
+  private boolean isLoggingEnable = true;
+
+  public ConnectionTemplate(){
+    isLoggingEnable = disableLogging();
+  }
+  public final void run(){
+
+    setDBDriver();
+    logging("Drivers set [" +new Date() + "]");
+    setCredentials();
+    logging("Credentials set [" +new Date() + "]");
+    connect();
+    logging("Connected");
+    prepareState();
+    logging("Statement Prepared [ " + new Date() +"]");
+  setDate();
+    logging("Date set [" + new Date() + "]");
+    insert();
+    logging("Data inserted [" + new Date() + "]");
+    close();
+    logging("Connections closed [" + new Date() + "]");
+    destory();
+    logging("Object destoryed [" + new Date() + "]");
+  
+  }
+  public abstract void setDBDriver();
+
+  public abstract void setCredentials();
+  public void connect(){
+    System.out.println("Setting connection...");
+  }
+
+  public void prepareStatement(){
+  System.out.println("Preparing statement...");
+  }
+public abstract void setDate();
+  public void insert(){
+    System.out.println("Inserting data...");
+  }
+
+  public void close(){
+    System.out.println("Destorying connection objects...");
+    
+  }
+
+  public boolean disableLogging(){
+    return true;
+  }
+
+  private void logging(String message){
+    if(isLoggingEnable){
+      System.out.println("Logging...:" + msg  );
+    }
+  }
+}
+
+//123 / 173
+
+//Java Design Patterns
+133
+/
+183
